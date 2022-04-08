@@ -1,0 +1,36 @@
+
+
+name: continuous integration
+
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 👌👌👌👌
+        uses: actions/checkout@v2
+
+      - name: Sleep for 5s 💤💤💤💤💤
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '5s'
+
+      - name: Setup dotnet 🔧🔧🔧🔧
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Restore dependencis 🔧🔧🔧🔧
+        run: dotnet restore
+
+      - name: Build app 🚀
+        run: dotnet build -c Release --no-restore
+
+      - name: Unit Test ✅✅✅✅
+        run:  dotnet test -c Release --no-build
+
+      - name: Publish app
+        run: dotnet publish -c Release -o ./app

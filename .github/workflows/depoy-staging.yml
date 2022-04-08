@@ -1,0 +1,23 @@
+name: deploy to staging
+
+on:
+  push:
+    branches:
+      - develop
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 👌👌👌👌👌👌
+        uses: actions/checkout@v2
+
+      - name: Deploy Heroku 🚀🚀🚀🚀🚀🚀
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_STAG_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "eShop-DHA"
+          usedocker: true
