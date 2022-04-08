@@ -18,7 +18,6 @@ builder.Services.AddSwaggerGen(options =>
         Contact = new OpenApiContact
         {
             Name = "Tuan Le",
-            Url = new Uri("#")
         },
         License = new OpenApiLicense
         {
@@ -41,22 +40,17 @@ else
 }
 var app = builder.Build();
 
-
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger(c =>
 {
-    app.UseSwagger(c =>
-    {
-        c.SerializeAsV2 = true;
-    });
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "eShop-DHA API V1");
-        c.RoutePrefix = string.Empty;
-        c.DocumentTitle = "eShop API";
-    });
-}
+    c.SerializeAsV2 = true;
+});
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "eShop-DHA API V1");
+    c.RoutePrefix = string.Empty;
+    c.DocumentTitle = "eShop API";
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
