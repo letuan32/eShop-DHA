@@ -1,10 +1,24 @@
 using System.Reflection;
+using eShop_DHA.Data;
+using eShop_DHA.Entities;
+using eShop_DHA.Helpers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.Win32.SafeHandles;
 
 var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment;
 // Add services to the container.
+var isDevelopmentEnviroment = builder.Environment.IsDevelopment();
+var connectionString = isDevelopmentEnviroment
+    ? builder.Configuration.GetConnectionString("DefaultConnection")
+    : HerokuHelper.GetConnectionString();
 
+builder.Services.AddDbContext<ApplicationDbContext>(option =>
+{
+    option.UseNpgsql(connectionString);
+});
+builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +53,7 @@ else
     });
 }
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 app.UseSwagger(c =>
