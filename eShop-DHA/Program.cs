@@ -2,6 +2,7 @@ using System.Reflection;
 using eShop_DHA.Data;
 using eShop_DHA.Entities;
 using eShop_DHA.Helpers;
+using eShop_DHA.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.Win32.SafeHandles;
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 });
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddControllers();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
