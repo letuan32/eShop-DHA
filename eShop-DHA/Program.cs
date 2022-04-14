@@ -1,11 +1,10 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using eShop_DHA.Data;
-using eShop_DHA.Entities;
 using eShop_DHA.Helpers;
 using eShop_DHA.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Microsoft.Win32.SafeHandles;
 
 var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment;
@@ -17,11 +16,20 @@ var connectionString = isDevelopmentEnviroment
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
-    option.UseNpgsql(connectionString);
+    option
+        .UseNpgsql(connectionString);
+    
 });
-builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+// builder.Services.AddControllers().AddJsonOptions(options =>
+// {
+//     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+//     // added this
+//     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+// });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -55,6 +63,7 @@ else
     });
 }
 var app = builder.Build();
+
 
 
 // Configure the HTTP request pipeline.

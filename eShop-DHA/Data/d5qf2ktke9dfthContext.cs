@@ -10,11 +10,13 @@ namespace eShop_DHA.Data
     {
         public ApplicationDbContext()
         {
+            
         }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+               
         }
 
         public virtual DbSet<Category> Category { get; set; } = null!;
@@ -62,6 +64,14 @@ namespace eShop_DHA.Data
                     .HasMaxLength(18)
                     .HasColumnName("sfid")
                     .UseCollation("ucs_basic");
+
+                // entity.HasMany(x => x.Products)
+                //     .WithOne(x => x.Category)
+                //     .HasForeignKey(x => x.CategoryExternalId)
+                //     .HasPrincipalKey(x => x.ExternalId);
+                //
+
+
 
             });
 
@@ -115,11 +125,12 @@ namespace eShop_DHA.Data
                     .HasColumnName("sfid")
                     .UseCollation("ucs_basic");
 
-
+               
                 entity.HasOne(p => p.Category)
                     .WithMany(c => c.Products)
-                    .HasForeignKey(p => p.CategoryId)
+                    .HasForeignKey(p => p.CategoryExternalId)
                     .HasPrincipalKey(p => p.ExternalId);
+                // entity.Navigation("Category");
 
             });
             

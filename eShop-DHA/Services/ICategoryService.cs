@@ -11,5 +11,7 @@ public interface ICategoryService
     Task<int> AddAsync(CreateCategoryRequest request);
     Task<int> UpdateAsync(UpdateCategoryRequest request);
     Task<int> DeleteAsync(int id);
+    
+    
 }
 

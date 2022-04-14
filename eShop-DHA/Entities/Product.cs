@@ -15,6 +15,6 @@ namespace eShop_DHA.Entities
         public string? SfId { get; set; }
         public int Id { get; set; }
         
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
