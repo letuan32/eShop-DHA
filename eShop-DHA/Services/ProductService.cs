@@ -37,6 +37,7 @@ public class ProductService : IProductService
                 ExternalId = p.ExternalId,
                 SfId = p.SfId,
                 Name = p.Name,
+                Price = p.Price,
                 CategoryName = p.Category.Name,
                 CreatedDate = p.CreatedDate,
                 UpdatedDate = p.UpdatedDate
@@ -49,7 +50,8 @@ public class ProductService : IProductService
         {
             ExternalId = Guid.NewGuid().ToString(),
             Name = request.Name,
-            CategoryExternalId = request.CategoryId
+            CategoryExternalId = request.CategoryId,
+            Price = request.Price
         };
         await _context.Product.AddAsync(product);
         return await _context.SaveChangesAsync();
@@ -62,10 +64,9 @@ public class ProductService : IProductService
         {
             existedProduct.Name = request.Name;
             existedProduct.CategoryExternalId = request.CategoryId;
-
+            existedProduct.Price = request.Price;
             return await _context.SaveChangesAsync();
         }
-
         return 0;
     }
 
