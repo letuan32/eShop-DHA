@@ -6,6 +6,7 @@ public class ProductResponse
     public string ExternalId { get; set; } = null!;
     public string SfId { get; set; } = null!;
     public string Name { get; set; } = null!;
+    public double Price { get; set; }
     public string CategoryName { get; set; } = null!;
     public DateTime? CreatedDate { get; set; }
     public DateTime? UpdatedDate { get; set; }

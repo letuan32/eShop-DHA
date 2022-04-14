@@ -7,6 +7,7 @@ namespace eShop_DHA.Entities
     {
         public string? CategoryId { get; set; }
         public string? Name { get; set; }
+        public double Price { get; set; }
         public string? CategoryExternalId { get; set; }
         public bool? IsDeleted { get; set; }
         public DateTime? UpdatedDate { get; set; }

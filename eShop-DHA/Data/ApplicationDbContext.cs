@@ -124,8 +124,11 @@ namespace eShop_DHA.Data
                     .HasMaxLength(18)
                     .HasColumnName("sfid")
                     .UseCollation("ucs_basic");
+                entity.Property(e => e.Price)
+                    .HasColumnName("price__c")
+                    .HasColumnType("double")
+                    .HasMaxLength(18);
 
-               
                 entity.HasOne(p => p.Category)
                     .WithMany(c => c.Products)
                     .HasForeignKey(p => p.CategoryExternalId)
