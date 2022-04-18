@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using eShop_DHA.Data;
 using eShop_DHA.Helpers;
+using eShop_DHA.Salesforce;
 using eShop_DHA.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddSingleton<IAuthenProvider, AuthenProvider>();
 // builder.Services.AddControllers().AddJsonOptions(options =>
 // {
 //     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
