@@ -46,6 +46,11 @@ public class ProductService : IProductService
 
     public async Task<int> AddAsync(CreateProductRequest request)
     {
+        var categoryInDb = await _context.Category.FirstOrDefaultAsync(x => x.ExternalId == request.CategoryId);
+        if (categoryInDb == null)
+        {
+            throw new KeyNotFoundException();
+        }
         var product = new Product
         {
             ExternalId = Guid.NewGuid().ToString(),
@@ -60,6 +65,11 @@ public class ProductService : IProductService
     public async Task<int> UpdateAsync(UpdateProductRequest request)
     {
         var existedProduct = await _context.Product.FindAsync(request.Id);
+        var categoryInDb = await _context.Category.FirstOrDefaultAsync(x => x.ExternalId == request.CategoryId);
+        if (categoryInDb == null)
+        {
+            throw new KeyNotFoundException();
+        }
         if (existedProduct != null)
         {
             existedProduct.Name = request.Name;
@@ -74,9 +84,6 @@ public class ProductService : IProductService
     {
         _context.Product.Remove(product);
         return await _context.SaveChangesAsync();
-
-
-        return 0;
     }
 
     public async Task<Product?> FindById(int id)
